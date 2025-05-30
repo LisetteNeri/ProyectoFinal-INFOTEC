@@ -1,4 +1,4 @@
-Algoritmo CarritoDeComprasConPruebaUnitaria
+Algoritmo CarritoDeCompras 
 	Definir nombreProducto, respuesta Como Cadena
 	Definir precio, cantidad, subtotal, total Como Real
 	Definir i Como Entero
@@ -26,6 +26,7 @@ Algoritmo CarritoDeComprasConPruebaUnitaria
 	Escribir "---- Carrito de Compras ----"
 	//Generamos un ciclo para seguir ingresando productos hasta que digamos que ya no queremos ingresar mas
 	Repetir
+		precio<-0 //Inicializamos el precio siempre en 0
 		Escribir "Producto #", i
 		
 		Escribir "Ingrese el nombre del producto (Tal como se muestra a continuación): Ropa, Equipamento, Accesorios, Recuperación)"
@@ -33,20 +34,28 @@ Algoritmo CarritoDeComprasConPruebaUnitaria
 		nombreProducto <-Mayusculas(nombreProducto)
 		
 		//Buscamos en nuestra "base de datos" el producto 
-		
+		encontrado<-0
 		Para j <- 1 Hasta 4 Con Paso 1
 			Si nombreProducto = productos[j] Entonces
 				precio <- precios[j]
+				encontrado <-1 //agregamos una varible que nos firma que el producto existe en nuestra base de datos.
 			FinSi
 		FinPara
 		
-		Escribir "Ingrese la cantidad del producto:"
-		Leer cantidad
-		// Calculamos el subtotal y el total
-		subtotal <- precio * cantidad
-		total <- total + subtotal
-		//Mostramos en pantalla el resultado
-		Escribir "Subtotal del producto ", nombreProducto, ": $", subtotal
+		
+		//Agregamos una opcion por el producto no se encuentra en nuestra base de datos
+		Si encontrado = 0 Entonces
+			Escribir "Producto no válido. Intente de nuevo :("
+			Escribir "Sugerencia: Revise la ortografia y los acentos, no deje espacios"
+		Sino
+			Escribir "Ingrese la cantidad del producto:"
+			Leer cantidad
+			// Calculamos el subtotal y el total
+			subtotal <- precio * cantidad
+			total <- total + subtotal
+			//Mostramos en pantalla el resultado
+			Escribir "Subtotal del producto ", nombreProducto, ": $", subtotal
+		FinSi
 		
 		// Preguntamos si requiere otro producto
 		Escribir "¿Desea agregar otro producto? (si/no)"
